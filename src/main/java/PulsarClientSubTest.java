@@ -9,15 +9,16 @@ import java.util.concurrent.TimeUnit;
 public class PulsarClientSubTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PulsarClientSubTest.class);
-
-    private static final String PULSAR_BROKER_URL = "pulsar://localhost:6650";
-    private static final String TOPIC_NAME = "test-topic";
+    private static final String PULSAR_BROKER_URL = "pulsar+ssl://<URL>";
+    private static final String TOPIC_NAME = "persistent://<full topic name>";
+    private static final String CONNECTION_TOKEN = "<token>";
 
     public static void main(String[] args) throws PulsarClientException {
 
         // Create client object
         PulsarClient client = PulsarClient.builder()
                 .serviceUrl(PULSAR_BROKER_URL)
+                .authentication((AuthenticationFactory.token(CONNECTION_TOKEN)))
                 .build();
 
         // Create consumer on a topic with a subscription
